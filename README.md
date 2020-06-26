@@ -11,7 +11,21 @@
 
 ### 가상환경 개발
 
+1. 가상환경 설치
 
+   `python -m venv venv`
+
+2. 가상환경 접속
+
+   `source venv/Scripts/activate`
+
+3. 패키지 설치
+
+   `pip install -r requirements.txt`
+
+4. 마이그레이션 하기
+
+5. 서버 구동
 
 
 
