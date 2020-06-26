@@ -1,0 +1,9 @@
+{% extends 'base_home.html' %}
+
+
+{% block content %}
+  <p>이름 : {{request.user.username}}</p>
+  <p></p>
+  <img src="{{request.user.profile.url}}" alt="" width="200px">
+
+{% endblock %}
