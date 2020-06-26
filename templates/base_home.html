@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base_home.css' %}">
+</head>
+<body onload="checked()">
+
+  <a href="{% url 'accounts:signup' %}">signup</a>
+  <a href="{% url 'accounts:login' %}">login</a>
+  <a href="{% url 'accounts:logout' %}">logout</a>
+  <p>{{request.user}}</p>
+  <div class="container">
+    <div class="row main_body justify-content-center align-items-center">
+      <div class="main_img">
+        <div class="inner_img">
+          <img class='img_car' width="240px" height="427px" src="{% static 'img/instagram_innerbackground1.jpg' %}" alt="">
+          <img class='img_car' width="240px" height="427px" src="{% static 'img/instagram_innerbackground2.jpg' %}" alt="">
+          <img class='img_car' width="240px" height="427px" src="{% static 'img/instagram_innerbackground3.jpg' %}" alt="">
+          <img class='img_car' width="240px" height="427px" src="{% static 'img/instagram_innerbackground4.jpg' %}" alt="">
+        </div>
+      </div>
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+  {% block script %}
+  {% endblock %}
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script>
+    var imagArray = document.querySelectorAll('.img_car')
+    var cnt = 0
+    function checked(){
+      if (cnt == 4 ){
+        cnt = 0
+      }
+      // console.log(imagArray)
+      temp = 0
+      for (var tag of imagArray){
+
+        if (temp === cnt){
+          tag.classList.add('img_first')
+          tag.classList.remove('img_last')
+
+        } else if(temp === (cnt+1)%4){
+          tag.classList.add('img_last')
+          tag.classList.remove('img_first')
+        }
+          else{
+          tag.classList.remove('img_last')
+          tag.classList.remove('img_first')
+        }
+        temp++
+
+
+      }
+      // console.log(cnt)
+      setTimeout(checked,5000)
+      cnt++
+    }
+
+  </script>
+
+</body>
+</html>

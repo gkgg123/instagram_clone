@@ -1,0 +1,50 @@
+{% load static %}
+
+.main_body{
+    max-width : 935px;
+    margin : 30px auto 0;
+    height: 759px;
+  }
+.main_img{
+  background-image: url('/static/img/instagram_bakcground.png');
+  flex-basis: 454px;
+  background-position : 0 0;
+  background-size: 454px 618px;
+  height : 618px;
+}
+.inner_img{
+  margin: 99px 0 0 151px;
+  position: relative;
+  width: 0px;
+  height: 0px;
+}
+.login_h1{
+  display: inline;
+  font-family: 'Dancing Script', cursive;
+  }
+
+
+
+  #loginpage{
+  text-align: center;
+  height : 747px;
+  width: 350px;
+  align-items: stretch;
+}
+
+.img_car{
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+.img_first{
+  opacity: 1;
+  -webkit-transition:opacity 2s ease-in;
+  transition:opacity 2s ease-in;
+  z-index:2;
+  visibility: visible;
+}
+.img_last{
+  opacity: 0.1;
+  
+}
