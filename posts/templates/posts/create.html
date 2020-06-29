@@ -1,0 +1,73 @@
+{% extends 'base_main.html' %} 
+
+
+
+{% block content %}
+<h1>안녕</h1>
+<form id="post_form" method="post" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form}}
+
+  <input type="submit" name="submit" value="Submit" />
+
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 300px;">
+    <div class="carousel-inner">
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+</form>
+
+
+<script>
+  const imgList = document.querySelector('#id_images')
+  console.log(imgList)
+  imgList.addEventListener('change',function(event){
+
+    
+    console.log(event.target.files)
+    var cnt = 1
+    for(var file of event.target.files){
+      const maindiv = document.querySelector('.carousel-inner')
+      if (cnt == 1){
+        const innerDiv = document.createElement('div')
+        innerDiv.classList.add('carousel-item','active')
+        const innerImg = document.createElement('img')
+        innerImg.width='300'
+        console.log(innerImg)
+        var reader = new FileReader()
+        reader.onload = (function(aImg){
+          return function(event){
+            aImg.src = event.target.result
+          }
+        })(innerImg)
+        reader.readAsDataURL(file)
+        innerDiv.appendChild(innerImg)
+        maindiv.appendChild(innerDiv)
+      } else{
+        const innerDiv = document.createElement('div')
+        innerDiv.classList.add('carousel-item')
+        const innerImg = document.createElement('img')
+        innerImg.width='300'
+        var reader = new FileReader()
+        reader.onload = (function(aImg){
+          return function(event){
+            aImg.src = event.target.result
+          }
+        })(innerImg)
+        reader.readAsDataURL(file)
+        innerDiv.appendChild(innerImg)
+        maindiv.appendChild(innerDiv)
+      }
+      cnt++
+    }
+  })
+</script>
+{% endblock %}

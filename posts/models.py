@@ -19,7 +19,7 @@ class PostComment(models.Model):
 
 
 def post_image_path(instance,filename):
-    return 'profile/{0}/posts/{1}'.format(instance.username,filename)
+    return 'profile/{0}/posts/{1}'.format(instance.post.user.username,filename)
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='postimage')

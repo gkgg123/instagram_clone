@@ -1,7 +1,7 @@
 {% extends 'base_main.html' %}
 
 {% block content %}
-  <a href="{% url 'posts:create' username %}">새글 쓰기</a>
+  <a href="{% url 'posts:create' main_user.username %}">새글 쓰기</a>
   <p>{{main_user.username}}</p>
 
   {% for post in posts %}
