@@ -6,6 +6,11 @@
 
   {% for post in posts %}
     {{post.content}}
+    {% if post.postimage %}
+      {% for img in post.postimage.all %}
+      <img src="{{img.image.url}}" alt="">
+      {% endfor %}
+    {% endif %}
   {% endfor %}
 
 {% endblock %}
