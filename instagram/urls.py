@@ -21,5 +21,6 @@ from accounts import views as mainview
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),
-    path('',mainview.login)
+    path('',mainview.login),
+    path('posts/',include('posts.urls'))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
