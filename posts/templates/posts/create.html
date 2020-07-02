@@ -28,12 +28,6 @@
 
 <script>
   const imgList = document.querySelector('#id_images')
-  var num = 5
-  var test = function(e){
-    console.log(e)
-  }(num)
-
-
   imgList.addEventListener('change',function(event){
 
     
@@ -49,7 +43,6 @@
         console.log(innerImg)
         var reader = new FileReader()
         reader.onload = (function(aImg){
-          console.log(aImg)
           return function(event){
             aImg.src = event.target.result
           }
