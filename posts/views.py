@@ -16,23 +16,25 @@ def index(request,username):
     return render(request,'posts/index.html',context)
 
 def create(request,username):
-    if request.method == 'POST':
-        form = PostForm(request.POST,request.FILES or None)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.save()
-            if request.FILES:
-                for img in request.FILES.getlist('images'):
-                    postimg = PostImage(post=post,image=img)
-                    print(postimg)
-                    postimg.save()
-            
-            return redirect('accounts:login')
-    else:
-        form = PostForm()
+    if request.user.username == username:
+        if request.method == 'POST':
+            form = PostForm(request.POST,request.FILES or None)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.user = request.user
+                post.save()
+                if request.FILES:
+                    for img in request.FILES.getlist('images'):
+                        postimg = PostImage(post=post,image=img)
+                        postimg.save()
+                
+                return redirect('posts:index',username)
+        else:
+            form = PostForm()
 
-    context = {
-        'form' : form,
-    }
-    return render(request,'posts/create.html',context)
+        context = {
+            'form' : form,
+        }
+        return render(request,'posts/create.html',context)
+    else:
+        return redirect('posts:index',username)

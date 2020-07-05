@@ -17,7 +17,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request,user)
-            return redirect('accounts:index')
+            return redirect('posts:index',request.user.username)
     else:
         form = UserCustomCreationForm()
     context = {
@@ -32,7 +32,7 @@ def login(request):
         if form.is_valid():
             auth_login(request,form.get_user())
 
-            return redirect('accounts:index')
+            return redirect('posts:index',request.user.username)
 
     else:
         form = AuthenticationForm()
