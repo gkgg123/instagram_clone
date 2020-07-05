@@ -1,0 +1,10 @@
+.home-btn {
+    background: url('../img/icon.png') no-repeat -340px -424px;
+	width: 22px;
+	height: 21px;
+}
+.like-btn {
+    background: url('../img/icon.png') no-repeat -469px -340px;
+	width: 24px;
+	height: 21px;
+}

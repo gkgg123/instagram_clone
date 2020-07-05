@@ -1,0 +1,26 @@
+{% load static %}
+<div class="sticky-top bg-white">
+  <div class="container ">
+    <div class="row align-items-center"  style="height: 54px;">
+      <div class="col-4 py-1">
+        <img src="{% static 'img/instagram_banner.png' %}" alt="">
+      </div>
+      <div class="col-4">
+        <input type="text" placeholder="검색">
+      </div>
+      <div id="navbar" class="col-4" style="height: 50%;">
+        <ul class="nav">
+          <a class="" href="{% url 'posts:index' request.user.username %}" >
+            <li class="home-btn list-unstyled mt-1 nav-item ml-5">            
+            </li>
+          </a>
+          <a class="" href="#" >
+            <li class="like-btn list-unstyled mt-1 nav-item mx-4">            
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="border border-dark"></div>
+</div>
