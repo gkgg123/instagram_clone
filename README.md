@@ -318,3 +318,81 @@ def create(request,username):
 
 -  예쁘께 css 꾸미기
 - Tag를 저장하는 메소드가 없다. 그 부분을 추가할 것이다.
+
+
+
+
+
+
+
+#### 3.3 navbar 완성
+
+##### 3.3.1 sprite 방식
+
+- 이미지를 각개로 불러오는것보다, 큰 이미지에서 원하는 부분만 잘라서 쓰는 것이 리소스 상에서 좋다.
+- 그래서 나온 기능이 sprite 기법이다. 
+- 이 방법은 background-position과 width,height를 통해, 이미지를 잘라내서 배경으로 가져오는것이다.
+- 이것을 직접 손으로 계산하기에는 힘든점이 많다.
+- http://www.spritecow.com/ 
+- 해당 사이트에 들어가서 원하는 이미지를 드래그하면 자동적으로 background랑 width,height를 지정해준다.
+- sprite를 쓸때 주의해야할 점은 잘라온 이미지 크기를 바꾸기 힘들다는 것이다.
+- 그래서 sprite할 이미지의 크기를 실제로 쓸 크기로 가져오는 편이 편하다.
+
+
+
+##### 3.3.2 profile 이미지 radius
+
+- profile 이미지를 동그랗게 해주기 위해 두가지의 클래스를 정의해줬다.
+
+  ```css
+  .box {
+      width: 30px;
+      border-radius: 70%;
+      overflow: hidden;
+      border: solid 0.5px black;
+  }
+  .profile {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+  ```
+
+- box는 img 태그를 감싸는 것이고, profile은 그 안에 들어갈 이미지이다.
+
+- box에서 이미지의 크기를 정해주고, radius로 얼마나 동그랗게 만들지 정해주면 된다.
+
+- 그리고 img태그는 object-fit : cover;로 만들어주면 된다.
+
+
+
+##### 3.3.3 thumbnail 만들기
+
+- 사용자가 올린 이미지를 resizing을 하고 싶을때가 있다.
+
+- 그럴 때 편하게 쓸수 있는게, django-imagekit이다.
+
+- 이걸 이용하기 위해서는 2개의 패키지를 추가적으로 설치해야한다.(단, pillow는 이미 설치되어있다고 가정한다.)
+
+  ```bash
+  $ pip install pilkit django-imagekit
+  ```
+
+```python
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill, ResizeToFit, Thumbnail
+#### processors 에 원하는 방식 중 하나를 골라서 해주면 된다.
+# ResizeToFill : 300*300 자르는 것(crop)
+# ResizeToFit : 가장 긴 곳(너비/높이)을 300으로 맞추고, 비율에 맞춰서
+# Tumbnail : smartresize를 해준다.
+
+
+
+image_thumbnail = ImageSpecField(source='image',
+                          processors=[Thumbnail(300, 300)],
+                          format='JPEG',
+                          options={'quality': 60})
+```
+
+- source는 참조를 할 칼럼명이다.
+- 이것도 사용방법은 똑같다. 뒤에 url을 붙여주면 된다.
