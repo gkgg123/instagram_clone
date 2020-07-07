@@ -2,15 +2,50 @@
 
 {% block content %}
   <a href="{% url 'posts:create' main_user.username %}">새글 쓰기</a>
-  <p>{{main_user.username}}</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-5" style="height: 40vh;">
+        <div class="row">
+          <div class="col-4">
+            <div class="main_box mx-auto border">
+              <img class="main_profile" src="{{main_user.profile.url}}" alt="">
+            </div>
+          </div>
+          <div class="col-8">
+            <h1>{{main_user.username}}</h1>
+            <hr>
+            <div>
+              {{main_user.intro}}
+            </div>
+          </div>
+        </div>
+      </div>
 
-  {% for post in posts %}
-    {{post.content}}
-    {% if post.postimage %}
-      {% for img in post.postimage.all %}
-      <img src="{{img.image.url}}" width="400px" alt="">
+      {% for post in posts %}
+      <div class="col-4 px-3 mb-5" style="overflow: hidden; height: 30vh;" data-type='post' >
+      {% if post.postimage %}
+        {% for img in post.postimage.all %}
+          {% if forloop.first %}
+            <img class="border" src="{{img.thumbnail.url}}"  alt="" style="width: inherit; height: inherit; object-fit: cover;" data-postid='{{post.id}}' >
+          {% endif %}
+        {% endfor %}
+      </div>
+        {% endif %}
       {% endfor %}
-    {% endif %}
-  {% endfor %}
 
+
+    </div>
+  </div>
+
+
+  <script>
+    const postArray = document.querySelectorAll('[data-type]')
+
+    postArray.forEach((post)=>{
+      post.addEventListener('click',(event)=>{
+        console.log(event.target.dataset.postid)
+        history.pushState(null,'instagram',event.target.dataset.postid)
+      })
+    })
+  </script>
 {% endblock %}
