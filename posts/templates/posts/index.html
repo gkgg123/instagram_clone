@@ -12,7 +12,14 @@
             </div>
           </div>
           <div class="col-8">
-            <h1>{{main_user.username}}</h1>
+            <h1>{{main_user.username}}
+            {% if main_user == request.user %}
+              <a href=""><button class="btn btn-default border font-weight-bold">프로필 편집</button></a>
+            {% else %}
+              <button class="btn btn-primary">팔로우</button>
+            {% endif %}
+
+            </h1>
             <hr>
             <div>
               {{main_user.intro}}
@@ -21,17 +28,14 @@
         </div>
       </div>
 
-      {% for post in posts %}
-      <div class="col-4 px-3 mb-5" style="overflow: hidden; height: 30vh;" data-type='post' >
-      {% if post.postimage %}
-        {% for img in post.postimage.all %}
-          {% if forloop.first %}
-            <img class="border" src="{{img.thumbnail.url}}"  alt="" style="width: inherit; height: inherit; object-fit: cover;" data-postid='{{post.id}}' >
-          {% endif %}
-        {% endfor %}
-      </div>
-        {% endif %}
+  {% for post in posts %}
+    {{post.content}}
+    {% if post.postimage %}
+      {% for img in post.postimage.all %}
+      <img src="{{img.image.url}}" width="400px" alt="">
       {% endfor %}
+    {% endif %}
+  {% endfor %}
 
 
     </div>
@@ -43,7 +47,6 @@
 
     postArray.forEach((post)=>{
       post.addEventListener('click',(event)=>{
-        console.log(event.target.dataset.postid)
         history.pushState(null,'instagram',event.target.dataset.postid)
       })
     })

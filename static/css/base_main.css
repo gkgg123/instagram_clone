@@ -28,7 +28,8 @@
     overflow: hidden;
 }
 .main_box::before{
-    padding-top: 100%;
+    padding-top: 100%;  
+    /* padding-top은 가로세로 비율 이다. padding-top = 세로/가로*100 */
 }
 
 .main_profile {
